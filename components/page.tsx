@@ -7,9 +7,9 @@ import { Input } from "@/components/ui/input"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar"
 import { Card, CardContent } from "@/components/ui/card"
-import { MessageCircle, Share, ThumbsDown, ThumbsUp, Handshake, TrendingUp, Zap, LogOut, Settings, HelpCircle, BarChart, FileText, Target, Brain, Mic, Menu } from "lucide-react"
+import { ArrowRight, MessageCircle, Share, ThumbsDown, ThumbsUp, Handshake, TrendingUp, Zap, LogOut, Settings, HelpCircle, BarChart, FileText, Target, Brain, Mic, Menu } from "lucide-react"
 import ReactMarkdown from 'react-markdown'
-
+import { motion, AnimatePresence } from 'framer-motion';
 import { useAuth, SignedIn, SignedOut, useClerk } from '@clerk/nextjs';
 import { useRouter } from 'next/navigation';
 
@@ -84,6 +84,89 @@ const TopicIntroduction: React.FC<{ topic: ExpertType; onAskQuestion: (question:
       </div>
     </div>
   )
+}
+
+function HeroSection() {
+  const rotatingTexts = [
+    "Real Estate Marketing Strategy",
+    "Sales Pitch",
+    "Marketing Budget",
+    "Negotiating Tactic",
+    "Motivational Quote",
+  ];
+  const [currentTextIndex, setCurrentTextIndex] = useState(0);
+  const router = useRouter();
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentTextIndex((prevIndex) => (prevIndex + 1) % rotatingTexts.length);
+    }, 3000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <section className="bg-blue-500  text-white py-20 relative overflow-hidden">
+      <div className="container mx-auto px-4 relative z-10">
+        <div className="max-w-3xl mx-auto text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="flex items-center justify-center mb-6"
+          >
+            {/* <AgentCoachLogo /> */}
+            <h1 className="text-4xl font-bold ml-4">AgentCoach.ai</h1>
+          </motion.div>
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="text-5xl font-bold mb-4"
+          >
+            Generate A Brilliant
+          </motion.h2>
+          <div className="h-20 mb-4 relative">
+            <AnimatePresence mode='wait'>
+              <motion.p
+                key={currentTextIndex}
+                initial={{ opacity: 0, y: 50 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -50 }}
+                transition={{ duration: 0.5 }}
+                className="text-5xl font-bold text-[#3b82f6] absolute w-full"
+              >
+                {rotatingTexts[currentTextIndex]}
+              </motion.p>
+            </AnimatePresence>
+          </div>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+            className="text-5xl font-bold mb-8 text-white"
+          >
+            In Seconds
+          </motion.p>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.6 }}
+          >
+            <Button onClick={()=>router.push("/signin")} size="lg" className="bg-white text-black hover:bg-gray-200 transition-all duration-300 transform hover:scale-105">
+              Get Started
+              <ArrowRight className="ml-2 h-4 w-4" />
+            </Button>
+          </motion.div>
+        </div>
+      </div>
+      <div className="absolute inset-0 z-0">
+        <div className="absolute inset-0 bg-[#0a0a0a] opacity-90"></div>
+        <svg className="absolute bottom-0 left-0 right-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+          <path fill="#ffffff" fillOpacity="0.1" d="M0,96L48,112C96,128,192,160,288,186.7C384,213,480,235,576,213.3C672,192,768,128,864,128C960,128,1056,192,1152,213.3C1248,235,1344,213,1392,202.7L1440,192L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+        </svg>
+      </div>
+    </section>
+  );
 }
 
 export function Page() {
@@ -329,8 +412,8 @@ export function Page() {
       </SignedIn>
 
       <SignedOut>
-    <div className="flex items-center justify-center h-full text-gray-300">
-      Please <a href="/signin" className="text-blue-500 ml-1">sign in </a>  &nbsp;to start chatting.
+    <div className="min-h-screen flex flex-col bg-[#0a0a0a] text-white">
+      <HeroSection />
     </div>
   </SignedOut>
 
