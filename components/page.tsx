@@ -10,6 +10,10 @@ import { Card, CardContent } from "@/components/ui/card"
 import { MessageCircle, Share, ThumbsDown, ThumbsUp, Handshake, TrendingUp, Zap, LogOut, Settings, HelpCircle, BarChart, FileText, Target, Brain, Mic, Menu } from "lucide-react"
 import ReactMarkdown from 'react-markdown'
 
+import { useAuth, SignedIn, SignedOut, useClerk } from '@clerk/nextjs';
+import { useRouter } from 'next/navigation';
+
+
 type Message = {
   role: 'user' | 'assistant' | 'system'
   content: string
@@ -89,6 +93,15 @@ export function Page() {
   const [isListening, setIsListening] = useState(false)
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
   const chatEndRef = useRef<HTMLDivElement>(null)
+  const { isLoaded, isSignedIn } = useAuth();
+  const router = useRouter();
+  const { signOut } = useClerk()
+
+  // useEffect(() => {
+  //   if (isLoaded && !isSignedIn) {
+  //     router.push('/signin'); 
+  //   }
+  // }, [isLoaded, isSignedIn, router]);
 
   useEffect(() => {
     chatEndRef.current?.scrollIntoView({ behavior: 'smooth' })
@@ -176,6 +189,7 @@ export function Page() {
 
   return (
     <div className="flex flex-col h-screen bg-gray-900 text-white">
+      <SignedIn>
       {/* Header */}
       <header className="fixed top-0 left-0 right-0 z-10 flex items-center justify-between px-4 py-2 bg-gray-800 text-white">
         <div className="flex items-center">
@@ -204,7 +218,7 @@ export function Page() {
             <Settings className="h-5 w-5 mr-2" />
             Settings
           </Button>
-          <Button variant="ghost" size="sm" className="text-gray-300 hover:text-white hover:bg-gray-700 hidden md:flex">
+          <Button onClick={() => signOut({ redirectUrl: '/' })} variant="ghost" size="sm" className="text-gray-300 hover:text-white hover:bg-gray-700 hidden md:flex">
             <LogOut className="h-5 w-5 mr-2" />
             Logout
           </Button>
@@ -312,6 +326,14 @@ export function Page() {
           </div>
         </div>
       </div>
+      </SignedIn>
+
+      <SignedOut>
+    <div className="flex items-center justify-center h-full text-gray-300">
+      Please <a href="/signin" className="text-blue-500 ml-1">sign in </a>  &nbsp;to start chatting.
+    </div>
+  </SignedOut>
+
     </div>
   )
 }

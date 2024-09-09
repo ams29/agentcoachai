@@ -8,7 +8,6 @@ const MOTIVATIONAL_BASE_URL = process.env.MOTIVATIONAL_BASE_URL;
 const NEGOTIATION_BASE_URL = process.env.NEGOTIATION_BASE_URL;
 const REAL_ESTATE_BASE_URL = process.env.REAL_ESTATE_BASE_URL;
 
-
 // k
 const systemPrompt = {
   "general": "You are a knowledgeable real estate expert with a deep understanding of the real estate market. You will use the knowledge base you have to guide your answers and will limit your answers to keep it short, consise, and most importantly powerful. Qoute the sources you used subtly in the response and always seek to get more information so you can answer better.",
