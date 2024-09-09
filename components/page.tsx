@@ -273,6 +273,7 @@ export function Page() {
   return (
     <div className="flex flex-col h-screen bg-gray-900 text-white">
       <SignedIn>
+        
       {/* Header */}
       <header className="fixed top-0 left-0 right-0 z-10 flex items-center justify-between px-4 py-2 bg-gray-800 text-white">
         <div className="flex items-center">
