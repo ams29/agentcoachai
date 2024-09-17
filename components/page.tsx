@@ -28,7 +28,7 @@ export function Page() {
   const { isLoaded, isSignedIn, userId } = useAuth();
   const router = useRouter();
   const { signOut } = useClerk();
-  const supabaseUrl = "https://cfkdwcrvjjpprhbmzzxz.supabase.co";
+  const supabaseUrl = "https://sgvvrdovhronhpykdgje.supabase.co";
   const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_KEY || "";
   const supabase = createClient(supabaseUrl, supabaseKey);
 
