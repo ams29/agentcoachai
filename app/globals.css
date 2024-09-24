@@ -7,6 +7,17 @@
   --foreground: #171717;
 }
 
+::-webkit-scrollbar {
+  width: 0!important;
+  height: 0px!important;
+}
+::-webkit-scrollbar-thumb {
+  background-color: rgba(0,0,0,.2);
+}
+::-webkit-scrollbar-track {
+  background: hsla(0,0%,100%,.1);
+}
+
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;

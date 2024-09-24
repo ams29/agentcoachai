@@ -1,7 +1,7 @@
 import { NextRequest } from 'next/server';
 import axios from 'axios';
 
-const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
+const NEXT_PUBLIC_OPENAI_API_KEY = process.env.NEXT_PUBLIC_OPENAI_API_KEY;
 const PINECONE_API_KEY = process.env.PINECONE_API_KEY;
 const REAL_ESTATE_BASE_URL = process.env.REAL_ESTATE_BASE_URL;
 const SALES_BASE_URL = process.env.SALES_BASE_URL;
@@ -77,7 +77,7 @@ export async function POST(req: NextRequest) {
       },
       {
         headers: {
-          Authorization: `Bearer ${OPENAI_API_KEY}`,
+          Authorization: `Bearer ${NEXT_PUBLIC_OPENAI_API_KEY}`,
           'Content-Type': 'application/json',
         },
       }
@@ -118,7 +118,7 @@ export async function POST(req: NextRequest) {
           const response = await fetch('https://api.openai.com/v1/chat/completions', {
             method: 'POST',
             headers: {
-              Authorization: `Bearer ${OPENAI_API_KEY}`,
+              Authorization: `Bearer ${NEXT_PUBLIC_OPENAI_API_KEY}`,
               'Content-Type': 'application/json',
             },
             body: JSON.stringify({
